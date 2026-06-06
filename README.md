@@ -28,3 +28,6 @@ VoiceAssistant -> src -> main.cpp
 
 Schematic:
 VoiceAssistantHW -> VoiceAssistantHW-backups -> VoiceAssistantHW/VoiceAssistantHW-backups/VoiceAssistantHW-2026-06-05_164113.zip
+
+#Demo
+video demo link:https://github.com/PatrickU99/ESP32-Voice-Assistant/releases/download/v1.0.0/IMG_6454.MOV
