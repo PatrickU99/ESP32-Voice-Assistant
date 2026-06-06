@@ -21,3 +21,10 @@ and plays it back through a speaker.
 1. Copy `include/config_template.h` to `include/config.h`
 2. Fill in your WiFi and API credentials
 3. Upload via PlatformIO
+
+# Important details
+main code:
+VoiceAssistant -> src -> main.cpp
+
+Schematic:
+VoiceAssistantHW -> VoiceAssistantHW-backups -> VoiceAssistantHW/VoiceAssistantHW-backups/VoiceAssistantHW-2026-06-05_164113.zip
