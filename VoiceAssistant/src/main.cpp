@@ -33,8 +33,9 @@ void setup() {
   Serial.println("\nWiFi connected!");
   
   audio_setup();
-  buffer_allocation();
+  wait_for_audio();
   display_setup();
+  buffer_allocation();
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 }
 

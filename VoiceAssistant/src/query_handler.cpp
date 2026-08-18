@@ -26,15 +26,17 @@ String query_GroqAPI(String user_message) {
   message["role"] = "user";
   message["content"] = user_message + " first give me a less than 6 word summary of your response. After this put your response in a newline and your response should be less than 15 words.";
   
-  requestDoc["max_tokens"] = 512;      // Limit response length
+  requestDoc["max_tokens"] = 1024;      // Limit response length
   requestDoc["temperature"] = 0.7;     // Creativity (0.0 to 1.0)
   requestDoc["top_p"] = 1.0;           // Diversity
   // Serialize request
+  
   String requestBody;
   serializeJson(requestDoc, requestBody);
   Serial.println("Sending request to Groq...");
   Serial.println("Model: " + String(GROQ_MODEL));
   // Send POST request
+  
   int httpCode = http.POST(requestBody);
   String responseText = "";
   // Handle response
@@ -68,6 +70,7 @@ String query_GroqAPI(String user_message) {
   responseText = "HTTP Error " + String(httpCode) + ": " + http.getString();
   }
   http.end();
+  Serial.println(responseText);
   int newline = responseText.indexOf('\n');
   String introduction = responseText.substring(0, newline);
   String response = responseText.substring(newline, responseText.length());
