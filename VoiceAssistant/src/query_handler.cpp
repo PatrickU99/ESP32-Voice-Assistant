@@ -6,6 +6,9 @@
 #include "display_functionality.h"
 #include "audio_functionality.h"
 
+String response;
+String introduction;
+
 String query_GroqAPI(String user_message) {
 // Check WiFi
   if (WiFi.status() != WL_CONNECTED) {
@@ -26,7 +29,7 @@ String query_GroqAPI(String user_message) {
   message["role"] = "user";
   message["content"] = user_message + " first give me a less than 6 word summary of your response. After this put your response in a newline and your response should be less than 15 words.";
   
-  requestDoc["max_tokens"] = 1024;      // Limit response length
+  requestDoc["max_tokens"] = 2048;      // Limit response length
   requestDoc["temperature"] = 0.7;     // Creativity (0.0 to 1.0)
   requestDoc["top_p"] = 1.0;           // Diversity
   // Serialize request
@@ -70,19 +73,22 @@ String query_GroqAPI(String user_message) {
   responseText = "HTTP Error " + String(httpCode) + ": " + http.getString();
   }
   http.end();
-  Serial.println(responseText);
-  int newline = responseText.indexOf('\n');
-  String introduction = responseText.substring(0, newline);
-  String response = responseText.substring(newline, responseText.length());
+  
+  if (responseText.length() == 0){
+    response = "This query has unfortunately exceeded the allowed token amount";
+    introduction = "Error: Tokens Exceeded";
+  } else {
+    int newline = responseText.indexOf('\n');
+    introduction = responseText.substring(0, newline);
+    response = responseText.substring(newline, responseText.length());
+  }
   
   // Ensure audio is ready and play
   speaker_input(response);
-  
   
   start_time = millis();
   
   //display response summary
   set_text(introduction);
-  
   return response;
 }
